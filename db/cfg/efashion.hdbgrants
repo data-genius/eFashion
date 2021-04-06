@@ -1,0 +1,20 @@
+{
+  "external-access": {
+    "object_owner" : {
+      "schema_privileges":[
+        {
+          "reference":"VIP_EFASHION",
+          "privileges_with_grant_option":["SELECT", "SELECT METADATA"]
+        }
+      ]
+    },
+    "application_user" : {
+      "schema_privileges":[
+        {
+          "reference":"VIP_EFASHION",
+          "privileges_with_grant_option":["SELECT", "SELECT METADATA"]
+        }
+      ]
+    }
+  }
+}

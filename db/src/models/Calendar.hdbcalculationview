@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="Calendar" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false" cacheEnabled="false">
+<descriptions defaultDescription="Calendar"/>
+<localVariables>
+  <variable id="VAR_YEAR">
+    <descriptions defaultDescription="Year"/>
+    <variableProperties datatype="INTEGER" length="NaN" scale="0" mandatory="true">
+      <valueDomain type="AttributeValue">
+        <attribute name="YR"/>
+      </valueDomain>
+      <selection multiLine="true" type="Interval"/>
+      <defaultRange operator="BT" including="true"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CALENDAR_YEAR_LOOKUP">
+    <resourceUri>CALENDAR_YEAR_LOOKUP</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+<inlineHierarchy xsi:type="Dimension:LeveledHierarchy" id="CalendarHierarchy" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="LEVEL_NAME_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+  <descriptions defaultDescription="Calendar Hierarchy"/>
+  <unassignedMemberProperties mode="FALSE"/>
+  <levels>
+    <level levelAttribute="YR" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="YR" sortDirection="ASC"/>
+    <level levelAttribute="QTR" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="QTR" sortDirection="ASC"/>
+    <level levelAttribute="MTH" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="MTH" sortDirection="ASC"/>
+    <level levelAttribute="WEEK_IN_YEAR" levelType="MDLEVEL_TYPE_REGULAR" order="4" orderAttribute="WEEK_IN_YEAR" sortDirection="ASC"/>
+  </levels>
+</inlineHierarchy>
+<logicalModel id="CALENDAR_YEAR_LOOKUP">
+  <attributes>
+    <attribute id="WEEK_ID" order="1" descriptionColumnName="YEAR_WEEK" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="WEEK_ID"/>
+      <keyMapping columnObjectName="CALENDAR_YEAR_LOOKUP" columnName="WEEK_ID"/>
+    </attribute>
+    <attribute id="YR" order="2" descriptionColumnName="FISCAL_PERIOD" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Year"/>
+      <localVariable>VAR_YEAR</localVariable>
+      <keyMapping columnObjectName="CALENDAR_YEAR_LOOKUP" columnName="YR"/>
+    </attribute>
+    <attribute id="QTR" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Quarter"/>
+      <keyMapping columnObjectName="CALENDAR_YEAR_LOOKUP" columnName="QTR"/>
+    </attribute>
+    <attribute id="MTH" order="4" descriptionColumnName="MONTH_NAME" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Month"/>
+      <keyMapping columnObjectName="CALENDAR_YEAR_LOOKUP" columnName="MTH"/>
+    </attribute>
+    <attribute id="WEEK_IN_YEAR" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Week"/>
+      <keyMapping columnObjectName="CALENDAR_YEAR_LOOKUP" columnName="WEEK_IN_YEAR"/>
+    </attribute>
+    <attribute id="HOLIDAY_FLAG" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Holiday"/>
+      <keyMapping columnObjectName="CALENDAR_YEAR_LOOKUP" columnName="HOLIDAY_FLAG"/>
+    </attribute>
+    <attribute id="FISCAL_PERIOD" hidden="true" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FISCAL_PERIOD"/>
+      <keyMapping columnObjectName="CALENDAR_YEAR_LOOKUP" columnName="FISCAL_PERIOD"/>
+    </attribute>
+    <attribute id="MONTH_NAME" hidden="true" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MONTH_NAME"/>
+      <keyMapping columnObjectName="CALENDAR_YEAR_LOOKUP" columnName="MONTH_NAME"/>
+    </attribute>
+    <attribute id="YEAR_WEEK" hidden="true" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Year Week"/>
+      <keyMapping columnObjectName="CALENDAR_YEAR_LOOKUP" columnName="YEAR_WEEK"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,62 @@
+{
+  "AGG_YR_QT_MT_MN_WK_RG_CY_SN_SR_QT_MA": {
+    "target": {
+      "object": "AGG_YR_QT_MT_MN_WK_RG_CY_SN_SR_QT_MA",
+      "schema": "VIP_EFASHION"
+    }
+  },
+  "AGG_YR_QT_RN_ST_LN_CA_SR": {
+    "target": {
+      "object": "AGG_YR_QT_RN_ST_LN_CA_SR",
+      "schema": "VIP_EFASHION"
+    }
+  },
+  "ARTICLE_COLOR_LOOKUP": {
+    "target": {
+      "object": "ARTICLE_COLOR_LOOKUP",
+      "schema": "VIP_EFASHION"
+    }
+  },
+  "ARTICLE_LOOKUP": {
+    "target": {
+      "object": "ARTICLE_LOOKUP",
+      "schema": "VIP_EFASHION"
+    }
+  },
+  "ARTICLE_LOOKUP_CRITERIA": {
+    "target": {
+      "object": "ARTICLE_LOOKUP_CRITERIA",
+      "schema": "VIP_EFASHION"
+    }
+  },
+  "CALENDAR_YEAR_LOOKUP": {
+    "target": {
+      "object": "CALENDAR_YEAR_LOOKUP",
+      "schema": "VIP_EFASHION"
+    }
+  },
+  "OUTLET_LOOKUP": {
+    "target": {
+      "object": "OUTLET_LOOKUP",
+      "schema": "VIP_EFASHION"
+    }
+  },
+  "PRODUCT_PROMOTION_FACTS": {
+    "target": {
+      "object": "PRODUCT_PROMOTION_FACTS",
+      "schema": "VIP_EFASHION"
+    }
+  },
+  "PROMOTION_LOOKUP": {
+    "target": {
+      "object": "PROMOTION_LOOKUP",
+      "schema": "VIP_EFASHION"
+    }
+  },
+  "SHOP_FACTS": {
+    "target": {
+      "object": "SHOP_FACTS",
+      "schema": "VIP_EFASHION"
+    }
+  }  
+}

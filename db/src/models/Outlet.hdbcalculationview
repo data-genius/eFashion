@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="Outlet" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="Outlet"/>
+<localVariables>
+  <variable id="Location">
+    <descriptions defaultDescription="Location"/>
+    <variableProperties datatype="NVARCHAR" length="20" scale="null" defaultValue="">
+      <valueDomain type="AttributeValue">
+        <attribute name="STATE"/>
+      </valueDomain>
+      <selection multiLine="true" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources>
+  <DataSource id="OUTLET_LOOKUP">
+    <resourceUri>OUTLET_LOOKUP</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+<inlineHierarchy xsi:type="Dimension:LeveledHierarchy" id="ShopHierarchy" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="LEVEL_NAME_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+  <descriptions defaultDescription="Location Hierarchy"/>
+  <unassignedMemberProperties mode="FALSE"/>
+  <levels>
+    <level levelAttribute="STATE" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="STATE" sortDirection="ASC"/>
+    <level levelAttribute="CITY" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="CITY" sortDirection="ASC"/>
+    <level levelAttribute="SHOP_ID" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="SHOP_NAME" sortDirection="ASC"/>
+  </levels>
+</inlineHierarchy>
+<logicalModel id="OUTLET_LOOKUP">
+  <attributes>
+    <attribute id="SHOP_ID" order="1" descriptionColumnName="SHOP_NAME" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SHOP_ID"/>
+      <keyMapping columnObjectName="OUTLET_LOOKUP" columnName="SHOP_ID"/>
+    </attribute>
+    <attribute id="SHOP_NAME" hidden="true" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Shop Name"/>
+      <keyMapping columnObjectName="OUTLET_LOOKUP" columnName="SHOP_NAME"/>
+    </attribute>
+    <attribute id="ADDRESS_1" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Address"/>
+      <keyMapping columnObjectName="OUTLET_LOOKUP" columnName="ADDRESS_1"/>
+    </attribute>
+    <attribute id="MANAGER" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Manager"/>
+      <keyMapping columnObjectName="OUTLET_LOOKUP" columnName="MANAGER"/>
+    </attribute>
+    <attribute id="DATE_OPEN" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Open Date"/>
+      <keyMapping columnObjectName="OUTLET_LOOKUP" columnName="DATE_OPEN"/>
+    </attribute>
+    <attribute id="LONG_OPENING_HOURS_FLAG" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Long Opening Hours"/>
+      <keyMapping columnObjectName="OUTLET_LOOKUP" columnName="LONG_OPENING_HOURS_FLAG"/>
+    </attribute>
+    <attribute id="OWNED_OUTRIGHT_FLAG" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Owned"/>
+      <keyMapping columnObjectName="OUTLET_LOOKUP" columnName="OWNED_OUTRIGHT_FLAG"/>
+    </attribute>
+    <attribute id="FLOOR_SPACE" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Floor Space"/>
+      <keyMapping columnObjectName="OUTLET_LOOKUP" columnName="FLOOR_SPACE"/>
+    </attribute>
+    <attribute id="ZIP_CODE" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Zip Code"/>
+      <keyMapping columnObjectName="OUTLET_LOOKUP" columnName="ZIP_CODE"/>
+    </attribute>
+    <attribute id="CITY" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="City"/>
+      <keyMapping columnObjectName="OUTLET_LOOKUP" columnName="CITY"/>
+    </attribute>
+    <attribute id="STATE" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="State"/>
+      <localVariable>Location</localVariable>
+      <keyMapping columnObjectName="OUTLET_LOOKUP" columnName="STATE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

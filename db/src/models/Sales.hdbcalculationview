@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Sales" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="Sales"/>
+<localVariables>
+  <variable id="VAR_YEAR">
+    <descriptions defaultDescription="Year">
+      <comment text=""/>
+    </descriptions>
+    <variableProperties datatype="INTEGER" length="NaN" scale="0" mandatory="true">
+      <valueDomain type="AttributeValue">
+        <attribute name="YR" resourceUri="Calendar"/>
+      </valueDomain>
+      <selection multiLine="true" type="Interval"/>
+      <defaultRange operator="BT" including="true"/>
+    </variableProperties>
+  </variable>
+  <variable id="VAR_FAMILY">
+    <descriptions defaultDescription="Family">
+      <comment text=""/>
+    </descriptions>
+    <variableProperties datatype="CHAR" length="3" scale="NaN" mandatory="false" defaultValue="">
+      <valueDomain type="AttributeValue">
+        <attribute name="FAMILY_CODE" resourceUri="Article"/>
+      </valueDomain>
+      <selection multiLine="true" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+  <variable id="Location">
+    <descriptions defaultDescription="Location">
+      <comment text=""/>
+    </descriptions>
+    <variableProperties datatype="NVARCHAR" length="20" scale="NaN" defaultValue="">
+      <valueDomain type="AttributeValue">
+        <attribute name="STATE" resourceUri="Outlet"/>
+      </valueDomain>
+      <selection multiLine="true" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources>
+  <DataSource id="SHOP_FACTS">
+    <resourceUri>SHOP_FACTS</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Sales">
+    <viewAttributes>
+      <viewAttribute id="SHOP_FACTS_ID"/>
+      <viewAttribute id="ARTICLE_ID"/>
+      <viewAttribute id="COLOR_CODE"/>
+      <viewAttribute id="WEEK_ID"/>
+      <viewAttribute id="SHOP_ID"/>
+      <viewAttribute id="MARGIN"/>
+      <viewAttribute id="AMOUNT_SOLD"/>
+      <viewAttribute id="QUANTITY_SOLD"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="SHOP_FACTS"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Sales">
+  <attributes>
+    <attribute id="WEEK_ID$local">
+      <descriptions defaultDescription="WEEK_ID"/>
+      <keyMapping columnObjectName="Sales" columnName="WEEK_ID"/>
+    </attribute>
+    <attribute id="ARTICLE_ID$local">
+      <descriptions defaultDescription="ARTICLE_ID"/>
+      <keyMapping columnObjectName="Sales" columnName="ARTICLE_ID"/>
+    </attribute>
+    <attribute id="SHOP_ID$local">
+      <descriptions defaultDescription="SHOP_ID"/>
+      <keyMapping columnObjectName="Sales" columnName="SHOP_ID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="MARGIN" order="1" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Margin"/>
+      <measureMapping columnObjectName="Sales" columnName="MARGIN"/>
+    </measure>
+    <measure id="AMOUNT_SOLD" order="2" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Amount"/>
+      <measureMapping columnObjectName="Sales" columnName="AMOUNT_SOLD"/>
+    </measure>
+    <measure id="QUANTITY_SOLD" order="3" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Quantity"/>
+      <measureMapping columnObjectName="Sales" columnName="QUANTITY_SOLD"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+  <sharedDimensions>
+    <logicalJoin associatedObjectUri="Calendar">
+      <attributes>
+        <attributeRef>WEEK_ID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>WEEK_ID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="leftOuter" joinOperator="Equal"/>
+      <associatedAttributeFeatures>
+        <attributeReference attributeName="YR">
+          <localVariable>VAR_YEAR</localVariable>
+        </attributeReference>
+      </associatedAttributeFeatures>
+    </logicalJoin>
+    <logicalJoin associatedObjectUri="Article">
+      <attributes>
+        <attributeRef>ARTICLE_ID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>ARTICLE_ID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="leftOuter" joinOperator="Equal"/>
+      <associatedAttributeFeatures>
+        <attributeReference attributeName="FAMILY_CODE">
+          <localVariable>VAR_FAMILY</localVariable>
+        </attributeReference>
+      </associatedAttributeFeatures>
+    </logicalJoin>
+    <logicalJoin associatedObjectUri="Outlet">
+      <attributes>
+        <attributeRef>SHOP_ID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>SHOP_ID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="leftOuter" joinOperator="Equal"/>
+      <associatedAttributeFeatures>
+        <attributeReference attributeName="STATE">
+          <localVariable>Location</localVariable>
+        </attributeReference>
+      </associatedAttributeFeatures>
+    </logicalJoin>
+  </sharedDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Sales" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="232"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Sales" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape modelObjectName="Calendar" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="620" y="30"/>
+      <rectangleSize width="172"/>
+    </shape>
+    <shape modelObjectName="Article" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="920" y="30"/>
+      <rectangleSize width="172"/>
+    </shape>
+    <shape modelObjectName="Outlet" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="1220" y="30"/>
+      <rectangleSize width="254"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
